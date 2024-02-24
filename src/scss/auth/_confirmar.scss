@@ -1,0 +1,15 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.confirmar {
+  .uptask {
+    @include m.headerDegradado(v.$indigo);
+  }
+
+  .acciones {
+    a {
+      color: v.$indigo;
+      margin: 0 auto;
+    }
+  }
+}

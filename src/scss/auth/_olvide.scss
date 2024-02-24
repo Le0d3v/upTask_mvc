@@ -1,0 +1,21 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.olvide {
+  margin-top: 5rem;
+
+  .uptask {
+    @include m.headerDegradado(v.$rosa);
+  }
+
+  input[type="submit"] {
+    margin-top: 1rem;
+    @include m.boton(v.$rosa, v.$blanco);
+  }
+
+  .acciones {
+    a {
+      color: v.$rosa;
+    }
+  }
+}
