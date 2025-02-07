@@ -33,8 +33,10 @@ class Router
         if ( $fn ) {
             // Call user fn va a llamar una función cuando no sabemos cual sera
             call_user_func($fn, $this); // This es para pasar argumentos
-        } else {
-            echo "error";
+        } 
+
+        if(!$fn) {
+            header("Location: /error");
         }
     }
 
@@ -47,7 +49,7 @@ class Router
 
         ob_start(); // Almacenamiento en memoria durante un momento...
 
-        // entonces incluimos la vista en el layout
+        // Incluimos la vista en el layout
         include_once __DIR__ . "/views/$view.php";
         $contenido = ob_get_clean(); // Limpia el Buffer
         include_once __DIR__ . '/views/layout.php';

@@ -75,6 +75,14 @@ class ActiveRecord {
         return $resultado;
     }
 
+    // Buscar registros 
+    public static function search($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} LIKE '%${valor}%'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
+
     // SQL para Consultas Avanzadas.
     public static function SQL($consulta) {
         $query = $consulta;

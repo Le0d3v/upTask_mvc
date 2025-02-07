@@ -1,0 +1,24 @@
+@use "base/variables" as v;
+
+.breadcrumb-container {
+  padding: 1rem;
+}
+
+.breadcrumb {
+  padding: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  display: inline;
+}
+
+.breadcrumb-item + .breadcrumb-item:before {
+  content: ">";
+  padding: 0 5px;
+}
+
+.breadcrumb-enlace {
+  color: v.$grisOscuro;
+}

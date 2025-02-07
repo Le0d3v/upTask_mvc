@@ -3,6 +3,9 @@
   <div class="contenedor-nueva-tarea">
     <button type="button" class="agregar-tarea" id="agregar-tarea">&#43; Nueva Tarea</button>
   </div>
+  <a href="/dashboard" class="enlace">
+  &#8592; Volver a Proyectos
+  </a>
   <div id="filtros" class="filtros">
     <div class="filtros-inputs">
       <h2>Filtros: </h2>

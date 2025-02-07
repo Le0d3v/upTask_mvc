@@ -1,6 +1,7 @@
 <?php 
 namespace Controllers;
 
+use Model\Breadcrumb;
 use MVC\Router;
 use Model\Usuario;
 use Model\Proyecto;
@@ -10,17 +11,28 @@ class DashboardController {
     session_start();
     isAuth();
 
+    $breadcrumb = new Breadcrumb();
+    $breadcrumb->add("UpTask", "/dashboard");
+    $breadcrumb->add("Proyectos", "/dashboard");
+
     $proyectos = Proyecto::belongsTo("propietarioId", $_SESSION["id"]);
     
     $router->render("dashboard/index", [
       "titulo" => "Proyectos",
-      "proyectos" => $proyectos
+      "proyectos" => $proyectos,
+      "enlace" => "project",
+      "breadcrumbs" => $breadcrumb->getBreadcrumbs()
     ]);
   }
 
   public static function crear_proyecto(Router $router) {
     session_start();
     isAuth();
+
+    $breadcrumb = new Breadcrumb();
+    $breadcrumb->add("UpTask", "/dashboard");
+    $breadcrumb->add("Proyectos", "/dashboard");
+    $breadcrumb->add("Crear Proyecto", "/crear-proyecto");
 
     $alertas = [];
 
@@ -41,13 +53,18 @@ class DashboardController {
 
     $router->render("dashboard/crear-proyecto", [
       "titulo" => "Crear Proyecto",
-      "alertas" => $alertas
+      "alertas" => $alertas,
+      "breadcrumbs" => $breadcrumb->getBreadcrumbs()
     ]);
   }
 
   public static function perfil(Router $router) {
     session_start();
     isAuth();
+
+    $breadcrumb = new Breadcrumb();
+    $breadcrumb->add("UpTask", "/dashboard");
+    $breadcrumb->add("Perfil", "/perfil");
     
     $alertas = [];
     $usuario = Usuario::find($_SESSION["id"]);
@@ -77,7 +94,9 @@ class DashboardController {
     $router->render("dashboard/perfil", [
       "titulo" => "Perfil", 
       "usuario" => $usuario, 
-      "alertas" => $alertas
+      "alertas" => $alertas,
+      "enlace" => "profile",
+      "breadcrumbs" => $breadcrumb->getBreadcrumbs()
     ]);
   }
 
@@ -90,18 +109,33 @@ class DashboardController {
 
     // Revisar que quien revisa el proyecto es quein lo creó
     $proyecto = Proyecto::where("url", $url);
+
     if($proyecto->propietarioId !== $_SESSION["id"]) {
       header("Location: /dashboard"); // Redirección en caso de ser otro usuario
     }
 
+    $breadcrumb = new Breadcrumb();
+    $breadcrumb->add("UpTask", "/dashboard");
+    $breadcrumb->add("Proyectos", "/dashboard");
+    $breadcrumb->add($proyecto->proyecto, "/proyecto?proyecto=" . $proyecto->url);
+
     $router->render("dashboard/proyecto", [
-      "titulo" => $proyecto->proyecto
+      "titulo" => $proyecto->proyecto,
+      "enlace" => "project",
+      "breadcrumbs" => $breadcrumb->getBreadcrumbs()
+      
     ]);
   }
 
   public static function cambiar_password(Router $router ) {
     session_start();
     isAuth();
+
+    $breadcrumb = new Breadcrumb();
+    $breadcrumb->add("UpTask", "/dashboard");
+    $breadcrumb->add("Perfil", "/perfil");
+    $breadcrumb->add("Cambiar Password", "/cambiar-password");
+    
     $alertas = [];
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -137,7 +171,9 @@ class DashboardController {
 
     $router->render("/dashboard/cambiar-password", [
       "titulo" => "Cambiar Password", 
-      "alertas" => $alertas
+      "alertas" => $alertas,
+      "enlace" => "profile",
+      "breadcrumbs" => $breadcrumb->getBreadcrumbs()
     ]);
   }
 }

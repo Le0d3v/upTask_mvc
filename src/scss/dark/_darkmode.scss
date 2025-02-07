@@ -137,4 +137,29 @@
       color: v.$blanco;
     }
   }
+
+  .breadcrumb {
+    list-style: none;
+    color: v.$gris;
+    padding: 0;
+  }
+
+  .breadcrumb-item {
+    display: inline;
+    color: v.$gris;
+  }
+
+  .breadcrumb-item + .breadcrumb-item:before {
+    color: v.$grisClaro;
+    content: ">";
+    padding: 0 5px;
+  }
+
+  .breadcrumb-enlace {
+    color: v.$grisClaro;
+
+    &:hover {
+      color: v.$gris;
+    }
+  }
 }

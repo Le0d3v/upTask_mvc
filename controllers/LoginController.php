@@ -15,6 +15,12 @@ class LoginController {
       $auth = new Usuario($_POST);
       $alertas = $auth->validarLogin();
 
+      // Validación de reCAPTCHA
+      $recaptchaResponse = $_POST['g-recaptcha-response'];
+      $secretKey = '6LdJHL4qAAAAAOafrEie7JwE1sQj-q_brOZyYm5H';
+      $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
+      $responseKeys = json_decode($response, true);
+
       if(empty($alertas)) {
         $usuario = Usuario::where("email", $auth->email);
 

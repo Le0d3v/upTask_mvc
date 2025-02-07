@@ -1,0 +1,11 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+
+.webcrumb {
+  width: 100%;
+  padding: 1rem;
+
+  a {
+    color: v.$gris;
+  }
+}

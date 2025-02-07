@@ -1,10 +1,11 @@
 <?php 
 require_once __DIR__ . '/../includes/app.php';
 
-use Controllers\DashboardController;
-use Controllers\LoginController;
-use Controllers\TareaController;
 use MVC\Router;
+use Controllers\LoginController;
+use Controllers\PagesController;
+use Controllers\TareaController;
+use Controllers\DashboardController;
 
 $router = new Router();
 
@@ -38,6 +39,9 @@ $router->get("/api/tareas", [TareaController::class, "index"]);
 $router->post("/api/tareas", [TareaController::class, "crear"]);
 $router->post("/api/tareas/actualizar", [TareaController::class, "actualizar"]);
 $router->post("/api/tareas/eliminar", [TareaController::class, "eliminar"]);
+
+// Pagina de Error
+$router->get("/error", [PagesController::class, "error"]);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
